@@ -6,10 +6,6 @@ public static class Program
 
     public static void Main()
     {
-        long[] longs = new long[] { 1, 5, 1, 2, 0, 8, 9, 11, 4, 5, 15, 12, 4, 7, 6, 10, 7 };
-        Shell shell = new Shell(longs);
-        //shell.Pratt();
-
         Debag();
     }
 
@@ -22,6 +18,7 @@ public static class Program
             + "Shell - Hibbard".PadRight(35) + "||" + "Shell - Pratt".PadRight(35) + "||";
 
         string hat2 = "".PadLeft(8) + "||" +
+            "time".PadLeft(12) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(11) + "||" +
             "time".PadLeft(12) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(11) + "||" +
             "time".PadLeft(12) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(11) + "||" +
             "time".PadLeft(12) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(11) + "||" +
