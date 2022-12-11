@@ -38,10 +38,10 @@ namespace SimpleSort
             long count = 0;
             long countBig = 1;
 
-            while (countBig < mass.Length)
+            while (((++CMPCounter > 0)) && countBig < mass.Length)
             {
                 long k = mass[countBig]; AsgCounter++;
-                count = countBig - 1; AsgCounter++;
+                count = countBig - 1;
                 while ((++CMPCounter > 0) && count >= 0 && mass[count] > k)
                 {
                     mass[count + 1] = mass[count]; AsgCounter++;
@@ -87,7 +87,7 @@ namespace SimpleSort
             }
             //конец условия выхода из рекурсии
 
-            long mid = (lowIndex + highIndex) / 2; AsgCounter++; 
+            long mid = (lowIndex + highIndex) / 2;
 
             if ((++CMPCounter > 0) && value > mass[mid])
                 return BinarySearch(value, mid + 1, highIndex);
