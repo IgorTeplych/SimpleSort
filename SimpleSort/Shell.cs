@@ -51,7 +51,20 @@ namespace SimpleSort
 
         public long[] Tsiur()
         {
-            
+            long[] tsiur = new long[] { 1, 4, 10, 23, 57, 132, 301, 701, 1750 };
+
+            int count = tsiur.Length - 1;
+            while (count >= 0)
+            {
+                long gap = tsiur[count--];
+                for (long i = gap; i < mass.Length; i++)
+                {
+                    for (long j = i; (++CMPCounter > 0) && j >= gap && mass[j - gap] > mass[j]; j -= gap)
+                    {
+                        Swap(ref mass[j - gap], ref mass[j]);
+                    }
+                }
+            }
             return mass;
         }
 
