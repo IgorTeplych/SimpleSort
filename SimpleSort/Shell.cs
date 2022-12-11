@@ -49,21 +49,37 @@ namespace SimpleSort
             return mass;
         }
 
+        public long[] Tsiur()
+        {
+            
+            return mass;
+        }
+
         public long[] Pratt()
         {
-            int pow = (int)Math.Log(mass.Length / 2, 6);
-            long gap = 2;
-            while (gap > 1)
+            int N = (mass.Length / 2);
+
+            int pow1 = (int)Math.Log(N, 2);
+            int pow2 = (int)Math.Log(N, 3);
+
+            int _pow2 = pow2;
+
+            while (pow1 >= 0)
             {
-                gap = (long)Math.Pow(2, pow) * (long)Math.Pow(3, pow);
-                pow--;
-                for (long i = gap; i < mass.Length; i++)
+                while (pow2 >= 0)
                 {
-                    for (long j = i; (++CMPCounter > 0) && j >= gap && mass[j - gap] > mass[j]; j -= gap)
+                    long gap = (long)Math.Pow(2, pow1) * (long)Math.Pow(3, pow2--);
+
+                    for (long i = gap; i < mass.Length; i++)
                     {
-                        Swap(ref mass[j - gap], ref mass[j]);
+                        for (long j = i; (++CMPCounter > 0) && j >= gap && mass[j - gap] > mass[j]; j -= gap)
+                        {
+                            Swap(ref mass[j - gap], ref mass[j]);
+                        }
                     }
                 }
+                pow2 = _pow2;
+                pow1--;
             }
             return mass;
         }

@@ -6,6 +6,10 @@ public static class Program
 
     public static void Main()
     {
+        var vr = new long[]{ 2, 1, 0, 8, 9, 4, 1, 0, 25, 74, 10, 9, 8, 0};
+        Shell shell = new Shell(vr);
+        shell.Tsiur();
+
         Debag();
     }
 
@@ -69,7 +73,7 @@ public static class Program
             sw.Start();
             if (mass.Length <= inputVal[2])
             {
-                bubble.Basic();
+                //bubble.Basic();
             }
             sw.Stop();
             report += Format(sw.Elapsed.TotalMilliseconds) + $"ms|{Format(bubble.AsgCounter)}| {Format(bubble.CmpCounter)}||";
@@ -79,7 +83,7 @@ public static class Program
             sw.Start();
             if (mass.Length <= inputVal[2])
             {
-                bubble.Modern();
+                //bubble.Modern();
             }
             sw.Stop();
             report += Format(sw.Elapsed.TotalMilliseconds) + $"ms|{Format(bubble.AsgCounter)}| {Format(bubble.CmpCounter)}||";
@@ -89,7 +93,7 @@ public static class Program
             sw.Start();
             if (mass.Length <= inputVal[3])
             {
-                insertion.Basic();
+                //insertion.Basic();
             }
             sw.Stop();
             report += Format(sw.Elapsed.TotalMilliseconds) + $"ms|{Format(insertion.AsgCounter)}| {Format(insertion.CMPCounter)}||";
@@ -99,7 +103,7 @@ public static class Program
             sw.Start();
             if (mass.Length <= inputVal[3])
             {
-                insertion.Shift();
+               // insertion.Shift();
             }
             sw.Stop();
             report += Format(sw.Elapsed.TotalMilliseconds) + $"ms|{Format(insertion.AsgCounter)}| {Format(insertion.CMPCounter)}||";
@@ -109,7 +113,7 @@ public static class Program
             sw.Start();
             if (mass.Length <= inputVal[3])
             {
-                insertion.Dichotomy();
+             //   insertion.Dichotomy();
             }
             sw.Stop();
             report += Format(sw.Elapsed.TotalMilliseconds) + $"ms|{Format(insertion.AsgCounter)}| {Format(insertion.CMPCounter)}||";
@@ -131,7 +135,7 @@ public static class Program
             sw = new Stopwatch();
             shell = new Shell(massForShellPratt);
             sw.Start();
-            shell.Pratt();
+            shell.Sedgwick();
             sw.Stop();
             report += Format(sw.Elapsed.TotalMilliseconds) + $"ms|{Format(shell.AsgCounter)}| {Format(shell.CMPCounter)}||";
 
