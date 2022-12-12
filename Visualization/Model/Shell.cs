@@ -6,19 +6,26 @@ using System.Threading.Tasks;
 
 namespace SimpleSort
 {
-    public class Shell
+    public class AlgShell
     {
         long[] mass;
-        public Shell(long[] mass)
+        public AlgShell(long[] mass)
         {
             this.mass = mass;
         }
-        
+        Action swapComplited;
+        Action Complited;
+        public AlgShell(Action swapComplited, Action Complited)
+        {
+            this.swapComplited = swapComplited;
+            this.Complited = Complited;
+        }
         public long AsgCounter { get; private set; }
         public long CMPCounter { get; private set; }
 
-        public long[] Basic()
+        public long[] Basic(long[] mass)
         {
+            this.mass = mass;
             for (long gap = mass.Length / 2; gap > 0; gap /= 2)
             {
                 for (long i = gap; i < mass.Length; i++)
@@ -29,12 +36,14 @@ namespace SimpleSort
                     }
                 }
             }
+            Complited.Invoke();
             return mass;
         }
 
-        public long[] Hibbard()
+        public long[] Hibbard(long[] mass)
         {
-            int pow = (int)Math.Log2(mass.Length);
+            this.mass = mass;
+            int pow = (int)Math.Log(mass.Length, 2);
             long gap = 2;
             while (gap > 1)
             {
@@ -47,11 +56,13 @@ namespace SimpleSort
                     }
                 }
             }
+            Complited.Invoke();
             return mass;
         }
 
-        public long[] Tsiur()
+        public long[] Tsiur(long[] mass)
         {
+            this.mass = mass;
             long[] tsiur = new long[] { 1, 4, 10, 23, 57, 132, 301, 701, 1750 };
 
             int count = tsiur.Length - 1;
@@ -66,11 +77,13 @@ namespace SimpleSort
                     }
                 }
             }
+            Complited.Invoke();
             return mass;
         }
 
-        public long[] Pratt()
+        public long[] Pratt(long[] mass)
         {
+            this.mass = mass;
             int N = (mass.Length / 2);
 
             int pow1 = (int)Math.Log(N, 2);
@@ -95,6 +108,7 @@ namespace SimpleSort
                 pow2 = _pow2;
                 pow1--;
             }
+            Complited.Invoke();
             return mass;
         }
 
@@ -103,6 +117,7 @@ namespace SimpleSort
             long temp = value1; AsgCounter++;
             value1 = value2; AsgCounter++;
             value2 = temp; AsgCounter++;
+            swapComplited.Invoke();
         }
     }
 }

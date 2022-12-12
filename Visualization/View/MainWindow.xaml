@@ -1,0 +1,93 @@
+﻿<Window x:Class="Visualization.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Visualization"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="MainWindow" MaxHeight="500" Height="500" Width="1250">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <ListBox x:Name="ListBoxItem" ItemsSource="{Binding Rectangles}" VerticalAlignment="Bottom">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Right"/>
+                    <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Rectangle Fill="Red" Height="{Binding Height}" Width="{Binding Width}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <xctk:IntegerUpDown 
+                Margin="5"
+                Grid.Column="0" 
+                Height="23" Width="75" 
+                Minimum="10" 
+                Value="{Binding SizeArray}" 
+                ToolTip="Размер массива"
+                IsEnabled="{Binding CanExecute}"/>
+            <Button Grid.Row="0" Grid.Column="1" Margin="5" Height="23" Width="75" 
+                    IsEnabled="{Binding CanExecute}" 
+                    Command="{Binding GenArrayCommand}" 
+                    ToolTip="Генерировать новый массив"
+                    Content="Новый массив"
+                    FontSize="10"/>
+
+            <Button Grid.Row="0" Grid.Column="2" Margin="5" Height="23" Width="80" IsEnabled="{Binding CanExecute}" Command="{Binding BubbleBasicCommand}" FontSize="11" Content="Bubble basic"/>
+            <Button Grid.Row="0" Grid.Column="3" Margin="5" Height="23" Width="80" IsEnabled="{Binding CanExecute}" Command="{Binding BubbleModernCommand}" FontSize="11" Content="Bubble modern"/>
+            <Button Grid.Row="0" Grid.Column="4" Margin="5" Height="23" Width="80" IsEnabled="{Binding CanExecute}" Command="{Binding InsertBasicCommand}" FontSize="11" Content="Insertion basic"/>
+            <Button Grid.Row="0" Grid.Column="5" Margin="5" Height="23" Width="80" IsEnabled="{Binding CanExecute}" Command="{Binding InsertShiftCommand}" FontSize="11" Content="Insertion shift"/>
+            <Button Grid.Row="0" Grid.Column="6" Margin="5" Height="23" Width="80" IsEnabled="{Binding CanExecute}" Command="{Binding InsertBinaryCommand}" FontSize="11" Content="Insertion binary"/>
+            <Button Grid.Row="0" Grid.Column="7" Margin="5" Height="23" Width="80" IsEnabled="{Binding CanExecute}" Command="{Binding ShellBasicCommand}" FontSize="11" Content="Shell"/>
+            <Button Grid.Row="0" Grid.Column="8" Margin="5" Height="23" Width="80" IsEnabled="{Binding CanExecute}" Command="{Binding ShellHibbardCommand}" FontSize="11" Content="Shell-Hibbard"/>
+            <Button Grid.Row="0" Grid.Column="9" Margin="5" Height="23" Width="80" IsEnabled="{Binding CanExecute}" Command="{Binding ShellPrattCommand}" FontSize="11" Content="Shell-Pratt"/>
+            <Button Grid.Row="0" Grid.Column="10" Margin="5" Height="23" Width="80" IsEnabled="{Binding CanExecute}" Command="{Binding SelectionCommand}" FontSize="11" Content="Selection"/>
+            <Button Grid.Row="0" Grid.Column="11" Margin="5" Height="23" Width="80" IsEnabled="{Binding CanExecute}" Command="{Binding HeapCommand}" FontSize="11" Content="Heap"/>
+            
+            <Slider Grid.Row="0" Grid.Column="12" Margin="5"
+                    VerticalAlignment="Center" 
+                    IsSnapToTickEnabled="True"
+                    Value="{Binding Pause}" Minimum="10" 
+                    Maximum="1000" 
+                    Width="150"
+                    Height="20" ToolTip="Скорость сортировки"/>
+        </Grid>
+
+    </Grid>
+</Window>
