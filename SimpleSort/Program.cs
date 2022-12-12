@@ -22,7 +22,7 @@ public static class Program
 
             Stopwatch sw = new Stopwatch();
             Bubble bubble = new Bubble(GetCopyMass(count));
-            if (massForTests[count].Length <= 100_000)
+            if (massForTests[count].Length <= 10000)
             {
                 sw.Start();
                 bubble.Basic();
@@ -36,7 +36,7 @@ public static class Program
 
             sw = new Stopwatch();
             bubble = new Bubble(GetCopyMass(count));
-            if (massForTests[count].Length <= 100_000)
+            if (massForTests[count].Length <= 10000)
             {
                 sw.Start();
                 bubble.Modern();
@@ -50,7 +50,7 @@ public static class Program
 
             sw = new Stopwatch();
             Insertion insertion = new Insertion(GetCopyMass(count));
-            if (massForTests[count].Length <= 100_000)
+            if (massForTests[count].Length <= 100000)
             {
                 sw.Start();
                 insertion.Basic();
@@ -64,7 +64,7 @@ public static class Program
 
             sw = new Stopwatch();
             insertion = new Insertion(GetCopyMass(count));
-            if (massForTests[count].Length <= 100_000)
+            if (massForTests[count].Length <= 100000)
             {
                 sw.Start();
                 insertion.Shift();
@@ -78,7 +78,7 @@ public static class Program
 
             sw = new Stopwatch();
             insertion = new Insertion(GetCopyMass(count));
-            if (massForTests[count].Length <= 100_000)
+            if (massForTests[count].Length <= 100000)
             {
                 sw.Start();
                 insertion.Dichotomy();
@@ -126,10 +126,17 @@ public static class Program
 
             sw = new Stopwatch();
             Selection selection = new Selection(GetCopyMass(count));
-            sw.Start();
-            selection.Basic();
-            sw.Stop();
-            report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(selection.AsgCounter)}|{Format(selection.CMPCounter)}||";
+            if (massForTests[count].Length <= 100000)
+            {
+                sw.Start();
+                selection.Basic();
+                sw.Stop();
+                report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(selection.AsgCounter)}|{Format(selection.CMPCounter)}||";
+            }
+            else
+            {
+                report += "не запускался".PadLeft(12 * 3 - 2) + "||";
+            }
 
             sw = new Stopwatch();
             Heap heap = new Heap(GetCopyMass(count));
@@ -212,7 +219,7 @@ public static class Program
     static long[] sizes;
     static void GetMassForTests()
     {
-        sizes = new long[] { (long)Math.Pow(10, 2), (long)Math.Pow(10, 3), (long)Math.Pow(10, 4), (long)Math.Pow(10, 5), (long)Math.Pow(10, 6) };
+        sizes = new long[] { (long)Math.Pow(10, 2), (long)Math.Pow(10, 3), (long)Math.Pow(10, 4), (long)Math.Pow(10, 5) , (long)Math.Pow(10, 6) };
         massForTests = new long[sizes.Length][];
 
         for (int i = 0; i < sizes.Length; i++)
