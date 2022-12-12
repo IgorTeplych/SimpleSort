@@ -13,6 +13,7 @@ public static class Program
         GetMassForTests();
         List<string> reports1 = new List<string>();
         List<string> reports2 = new List<string>();
+        List<string> reports3 = new List<string>();
 
         int count = 0;
         while (count < massForTests.Length)
@@ -21,38 +22,73 @@ public static class Program
 
             Stopwatch sw = new Stopwatch();
             Bubble bubble = new Bubble(GetCopyMass(count));
-            sw.Start();
-            bubble.Basic();
-            sw.Stop();
-            report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(bubble.AsgCounter)}|{Format(bubble.CmpCounter)}||";
+            if (massForTests[count].Length <= 100_000)
+            {
+                sw.Start();
+                bubble.Basic();
+                sw.Stop();
+                report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(bubble.AsgCounter)}|{Format(bubble.CmpCounter)}||";
+            }
+            else
+            {
+                report += "не запускался".PadLeft(12 * 3 - 2) + "||";
+            }
 
             sw = new Stopwatch();
             bubble = new Bubble(GetCopyMass(count));
-            sw.Start();
-            bubble.Modern();
-            sw.Stop();
-            report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(bubble.AsgCounter)}|{Format(bubble.CmpCounter)}||";
+            if (massForTests[count].Length <= 100_000)
+            {
+                sw.Start();
+                bubble.Modern();
+                sw.Stop();
+                report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(bubble.AsgCounter)}|{Format(bubble.CmpCounter)}||";
+            }
+            else
+            {
+                report += "не запускался".PadLeft(12 * 3 - 2) + "||";
+            }
 
             sw = new Stopwatch();
             Insertion insertion = new Insertion(GetCopyMass(count));
-            sw.Start();
-            insertion.Basic();
-            sw.Stop();
-            report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(insertion.AsgCounter)}|{Format(insertion.CMPCounter)}||";
+            if (massForTests[count].Length <= 100_000)
+            {
+                sw.Start();
+                insertion.Basic();
+                sw.Stop();
+                report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(insertion.AsgCounter)}|{Format(insertion.CMPCounter)}||";
+            }
+            else
+            {
+                report += "не запускался".PadLeft(12 * 3 - 2) + "||";
+            }
 
             sw = new Stopwatch();
             insertion = new Insertion(GetCopyMass(count));
-            sw.Start();
-            insertion.Shift();
-            sw.Stop();
-            report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(insertion.AsgCounter)}|{Format(insertion.CMPCounter)}||";
+            if (massForTests[count].Length <= 100_000)
+            {
+                sw.Start();
+                insertion.Shift();
+                sw.Stop();
+                report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(insertion.AsgCounter)}|{Format(insertion.CMPCounter)}||";
+            }
+            else
+            {
+                report += "не запускался".PadLeft(12 * 3 - 2) + "||";
+            }
 
             sw = new Stopwatch();
             insertion = new Insertion(GetCopyMass(count));
-            sw.Start();
-            insertion.Dichotomy();
-            sw.Stop();
-            report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(insertion.AsgCounter)}|{Format(insertion.CMPCounter)}||";
+            if (massForTests[count].Length <= 100_000)
+            {
+                sw.Start();
+                insertion.Dichotomy();
+                sw.Stop();
+                report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(insertion.AsgCounter)}|{Format(insertion.CMPCounter)}||";
+            }
+            else
+            {
+                report += "не запускался".PadLeft(12 * 3 - 2) + "||";
+            }
 
             reports1.Add(report);
             report = "";
@@ -88,12 +124,28 @@ public static class Program
             reports2.Add(report);
             report = "";
 
+            sw = new Stopwatch();
+            Selection selection = new Selection(GetCopyMass(count));
+            sw.Start();
+            selection.Basic();
+            sw.Stop();
+            report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(selection.AsgCounter)}|{Format(selection.CMPCounter)}||";
+
+            sw = new Stopwatch();
+            Heap heap = new Heap(GetCopyMass(count));
+            sw.Start();
+            heap.Basic();
+            sw.Stop();
+            report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(heap.AsgCounter)}|{Format(heap.CMPCounter)}||";
+
+            reports3.Add(report);
+
             count++;
         }
 
-        int temp = 30;
+        int temp = 34;
         string hat =
-            "Size".PadRight(10) +
+            "Size".PadRight(12) +
             "||" + "Basic Bubble".PadRight(temp) +
             "||" + "Modern Bubble".PadRight(temp) +
             "||" + "Basic Insertion".PadRight(temp) +
@@ -102,12 +154,12 @@ public static class Program
             "||";
         Console.WriteLine(hat);
         Console.WriteLine(
-            "".PadLeft(10) + "||" +
-            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
-            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
-            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
-            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
-            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) +
+            "".PadLeft(12) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(12) + "|" + "cmp.".PadLeft(12) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(12) + "|" + "cmp.".PadLeft(12) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(12) + "|" + "cmp.".PadLeft(12) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(12) + "|" + "cmp.".PadLeft(12) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(12) + "|" + "cmp.".PadLeft(12) +
             "||"
             );
         Console.WriteLine("-".PadRight(hat.Length, '-'));
@@ -117,7 +169,7 @@ public static class Program
         }
         Console.WriteLine();
 
-        hat = "Size".PadRight(10) +
+        hat = "Size".PadRight(12) +
             "||" + "Shell Basic".PadRight(temp) +
             "||" + "Shell - Hibbard".PadRight(temp) +
             "||" + "Shell - Pratt".PadRight(temp) +
@@ -125,16 +177,34 @@ public static class Program
             "||";
         Console.WriteLine(hat);
         Console.WriteLine(
-            "".PadLeft(10) + "||" +
-            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
-            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
-            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
-            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||"
+            "".PadLeft(12) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(12) + "|" + "cmp.".PadLeft(12) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(12) + "|" + "cmp.".PadLeft(12) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(12) + "|" + "cmp.".PadLeft(12) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(12) + "|" + "cmp.".PadLeft(12) + "||"
             );
         Console.WriteLine("-".PadRight(hat.Length, '-'));
         for (int i = 0; i < reports2.Count; i++)
         {
             Console.WriteLine(Format(sizes[i]) + "||" + reports2[i]);
+        }
+
+        Console.WriteLine();
+
+        hat = "Size".PadRight(12) +
+            "||" + "Selection".PadRight(temp) +
+            "||" + "HeapSort".PadRight(temp) +
+            "||";
+        Console.WriteLine(hat);
+        Console.WriteLine(
+            "".PadLeft(12) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(12) + "|" + "cmp.".PadLeft(12) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(12) + "|" + "cmp.".PadLeft(12) + "||"
+            );
+        Console.WriteLine("-".PadRight(hat.Length, '-'));
+        for (int i = 0; i < reports3.Count; i++)
+        {
+            Console.WriteLine(Format(sizes[i]) + "||" + reports3[i]);
         }
     }
 
@@ -142,7 +212,7 @@ public static class Program
     static long[] sizes;
     static void GetMassForTests()
     {
-        sizes = new long[] { (long)Math.Pow(10, 2), (long)Math.Pow(10, 3), (long)Math.Pow(10, 4), (long)Math.Pow(10, 4)};
+        sizes = new long[] { (long)Math.Pow(10, 2), (long)Math.Pow(10, 3), (long)Math.Pow(10, 4), (long)Math.Pow(10, 5), (long)Math.Pow(10, 6) };
         massForTests = new long[sizes.Length][];
 
         for (int i = 0; i < sizes.Length; i++)
@@ -170,22 +240,12 @@ public static class Program
         }
         return mass;
     }
-
-    static string Format(double d)
-    {
-        return Math.Round(d, 0).ToString().PadLeft(10);
-    }
     static string Format(long l)
     {
-        return l.ToString().PadLeft(10);
+        return l.ToString().PadLeft(12);
     }
     static string FormatTimer(double d)
     {
-        if (d == 0)
-        {
-            return "-".PadLeft(8);
-        }
-
         if (d > 100)
         {
             return Math.Round(d, 0).ToString().PadLeft(8);
