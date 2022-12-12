@@ -3,7 +3,6 @@ using System.Diagnostics;
 
 public static class Program
 {
-
     public static void Main()
     {
         Debag();
@@ -11,147 +10,152 @@ public static class Program
 
     static void Debag()
     {
-        long[] inputVal = new long[] { (long)Math.Pow(10, 2), (long)Math.Pow(10, 3), (long)Math.Pow(10, 4), (long)Math.Pow(10, 5), (long)Math.Pow(10, 6), (long)Math.Pow(10, 7) / 2 };
-
-        int temp = 30;
-        string hat = "Size".PadRight(8) + "||" + "Basic Bubble".PadRight(temp) + "||" + "Modern Bubble".PadRight(temp) + "||" +
-            "Basic Insertion".PadRight(temp) + "||" + "Shift Insertion".PadRight(temp) + "||" + "Binary Insertion".PadRight(temp) + "||" + "Shell Basic".PadRight(temp) + "||"
-            + "Shell - Hibbard".PadRight(temp) + "||" + "Shell - Pratt".PadRight(temp) + "||" + "Shell - Tsiur".PadRight(temp) + "||";
-
-        string hat2 = "".PadLeft(8) + "||" +
-            "time".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
-            "time".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
-            "time".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
-            "time".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
-            "time".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
-            "time".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
-            "time".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
-            "time".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
-            "time".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||";
-
-        string line = "".PadLeft(hat.Length, '-');
-
-        Console.WriteLine(hat);
-        Console.WriteLine(hat2);
-        Console.WriteLine(line);
+        GetMassForTests();
+        List<string> reports1 = new List<string>();
+        List<string> reports2 = new List<string>();
 
         int count = 0;
-        while (count < inputVal.Length)
+        while (count < massForTests.Length)
         {
-            long[] mass = GetMass(inputVal[count]);
-
-            long[] massForBubbleSimple = new long[mass.Length];
-            mass.CopyTo(massForBubbleSimple, 0);
-
-            long[] massForBubbleModern = new long[mass.Length];
-            mass.CopyTo(massForBubbleModern, 0);
-
-            long[] massForIntersertSimple = new long[mass.Length];
-            mass.CopyTo(massForIntersertSimple, 0);
-
-            long[] massForIntersertShift = new long[mass.Length];
-            mass.CopyTo(massForIntersertShift, 0);
-
-            long[] massForIntersertDichotomy = new long[mass.Length];
-            mass.CopyTo(massForIntersertDichotomy, 0);
-
-            long[] massForShellBasic = new long[mass.Length];
-            mass.CopyTo(massForShellBasic, 0);
-
-            long[] massForShellHibbard = new long[mass.Length];
-            mass.CopyTo(massForShellHibbard, 0);
-
-            long[] massForShellPratt = new long[mass.Length];
-            mass.CopyTo(massForShellPratt, 0);
-
-            long[] massForShellTsiur = new long[mass.Length];
-            mass.CopyTo(massForShellTsiur, 0);
-
             string report = "";
 
             Stopwatch sw = new Stopwatch();
-            Bubble bubble = new Bubble(massForBubbleSimple);
+            Bubble bubble = new Bubble(GetCopyMass(count));
             sw.Start();
-            if (mass.Length <= inputVal[2])
-            {
-                bubble.Basic();
-            }
+            bubble.Basic();
             sw.Stop();
             report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(bubble.AsgCounter)}|{Format(bubble.CmpCounter)}||";
 
             sw = new Stopwatch();
-            bubble = new Bubble(massForBubbleModern);
+            bubble = new Bubble(GetCopyMass(count));
             sw.Start();
-            if (mass.Length <= inputVal[2])
-            {
-                bubble.Modern();
-            }
+            bubble.Modern();
             sw.Stop();
             report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(bubble.AsgCounter)}|{Format(bubble.CmpCounter)}||";
 
             sw = new Stopwatch();
-            Insertion insertion = new Insertion(massForIntersertSimple);
+            Insertion insertion = new Insertion(GetCopyMass(count));
             sw.Start();
-            if (mass.Length <= inputVal[3])
-            {
-                insertion.Basic();
-            }
+            insertion.Basic();
             sw.Stop();
             report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(insertion.AsgCounter)}|{Format(insertion.CMPCounter)}||";
 
             sw = new Stopwatch();
-            insertion = new Insertion(massForIntersertShift);
+            insertion = new Insertion(GetCopyMass(count));
             sw.Start();
-            if (mass.Length <= inputVal[3])
-            {
-                insertion.Shift();
-            }
+            insertion.Shift();
             sw.Stop();
             report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(insertion.AsgCounter)}|{Format(insertion.CMPCounter)}||";
 
             sw = new Stopwatch();
-            insertion = new Insertion(massForIntersertDichotomy);
+            insertion = new Insertion(GetCopyMass(count));
             sw.Start();
-            if (mass.Length <= inputVal[3])
-            {
-                insertion.Dichotomy();
-            }
+            insertion.Dichotomy();
             sw.Stop();
             report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(insertion.AsgCounter)}|{Format(insertion.CMPCounter)}||";
 
+            reports1.Add(report);
+            report = "";
+
             sw = new Stopwatch();
-            Shell shell = new Shell(massForShellBasic);
+            Shell shell = new Shell(GetCopyMass(count));
             sw.Start();
             shell.Basic();
             sw.Stop();
             report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(shell.AsgCounter)}|{Format(shell.CMPCounter)}||";
 
             sw = new Stopwatch();
-            shell = new Shell(massForShellHibbard);
+            shell = new Shell(GetCopyMass(count));
             sw.Start();
             shell.Hibbard();
             sw.Stop();
             report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(shell.AsgCounter)}|{Format(shell.CMPCounter)}||";
 
             sw = new Stopwatch();
-            shell = new Shell(massForShellPratt);
+            shell = new Shell(GetCopyMass(count));
             sw.Start();
             shell.Pratt();
             sw.Stop();
             report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(shell.AsgCounter)}|{Format(shell.CMPCounter)}||";
 
             sw = new Stopwatch();
-            shell = new Shell(massForShellTsiur);
+            shell = new Shell(GetCopyMass(count));
             sw.Start();
             shell.Tsiur();
             sw.Stop();
             report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(shell.AsgCounter)}|{Format(shell.CMPCounter)}||";
 
-            Console.WriteLine($"{inputVal[count].ToString().PadRight(8)}||{report}");
+            reports2.Add(report);
+            report = "";
+
             count++;
         }
 
+        int temp = 30;
+        string hat =
+            "Size".PadRight(10) +
+            "||" + "Basic Bubble".PadRight(temp) +
+            "||" + "Modern Bubble".PadRight(temp) +
+            "||" + "Basic Insertion".PadRight(temp) +
+            "||" + "Shift Insertion".PadRight(temp) +
+            "||" + "Binary Insertion".PadRight(temp) +
+            "||";
+        Console.WriteLine(hat);
+        Console.WriteLine(
+            "".PadLeft(10) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) +
+            "||"
+            );
+        Console.WriteLine("-".PadRight(hat.Length, '-'));
+        for (int i = 0; i < reports1.Count; i++)
+        {
+            Console.WriteLine(Format(sizes[i]) + "||" + reports1[i]);
+        }
+        Console.WriteLine();
 
+        hat = "Size".PadRight(10) +
+            "||" + "Shell Basic".PadRight(temp) +
+            "||" + "Shell - Hibbard".PadRight(temp) +
+            "||" + "Shell - Pratt".PadRight(temp) +
+            "||" + "Shell - Tsiur".PadRight(temp) +
+            "||";
+        Console.WriteLine(hat);
+        Console.WriteLine(
+            "".PadLeft(10) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(10) + "|" + "cmp.".PadLeft(10) + "||"
+            );
+        Console.WriteLine("-".PadRight(hat.Length, '-'));
+        for (int i = 0; i < reports2.Count; i++)
+        {
+            Console.WriteLine(Format(sizes[i]) + "||" + reports2[i]);
+        }
+    }
+
+    static long[][] massForTests;
+    static long[] sizes;
+    static void GetMassForTests()
+    {
+        sizes = new long[] { (long)Math.Pow(10, 2), (long)Math.Pow(10, 3), (long)Math.Pow(10, 4), (long)Math.Pow(10, 4)};
+        massForTests = new long[sizes.Length][];
+
+        for (int i = 0; i < sizes.Length; i++)
+        {
+            massForTests[i] = GetMass(sizes[i]);
+        }
+    }
+    static long[] GetCopyMass(int index)
+    {
+        var mass = massForTests[index];
+        long[] copyMass = new long[mass.Length];
+        mass.CopyTo(copyMass, 0);
+        return copyMass;
     }
 
     static Random random = new Random();
@@ -170,6 +174,10 @@ public static class Program
     static string Format(double d)
     {
         return Math.Round(d, 0).ToString().PadLeft(10);
+    }
+    static string Format(long l)
+    {
+        return l.ToString().PadLeft(10);
     }
     static string FormatTimer(double d)
     {
