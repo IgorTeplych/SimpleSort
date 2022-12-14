@@ -5,7 +5,9 @@ public static class Program
 {
     public static void Main()
     {
-        Debag();
+        MergeSort mergeSort = new MergeSort(new long[] { 0, 2, 8, 5, 3, 4, 10, 25, 7, 1, 2, 7, 2, 4, 3 });
+        //mergeSort.Sort();
+        //Debag();
     }
 
     static void Debag()
@@ -22,10 +24,10 @@ public static class Program
 
             Stopwatch sw = new Stopwatch();
             Bubble bubble = new Bubble(GetCopyMass(count));
-            if (massForTests[count].Length <= 10000)
+            if (massForTests[count].Length <= 100000)
             {
                 sw.Start();
-                bubble.Basic();
+                // bubble.Basic();
                 sw.Stop();
                 report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(bubble.AsgCounter)}|{Format(bubble.CmpCounter)}||";
             }
@@ -36,10 +38,10 @@ public static class Program
 
             sw = new Stopwatch();
             bubble = new Bubble(GetCopyMass(count));
-            if (massForTests[count].Length <= 10000)
+            if (massForTests[count].Length <= 100000)
             {
                 sw.Start();
-                bubble.Modern();
+                //bubble.Modern();
                 sw.Stop();
                 report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(bubble.AsgCounter)}|{Format(bubble.CmpCounter)}||";
             }
@@ -53,7 +55,7 @@ public static class Program
             if (massForTests[count].Length <= 100000)
             {
                 sw.Start();
-                insertion.Basic();
+                // insertion.Basic();
                 sw.Stop();
                 report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(insertion.AsgCounter)}|{Format(insertion.CMPCounter)}||";
             }
@@ -67,7 +69,7 @@ public static class Program
             if (massForTests[count].Length <= 100000)
             {
                 sw.Start();
-                insertion.Shift();
+                // insertion.Shift();
                 sw.Stop();
                 report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(insertion.AsgCounter)}|{Format(insertion.CMPCounter)}||";
             }
@@ -81,7 +83,7 @@ public static class Program
             if (massForTests[count].Length <= 100000)
             {
                 sw.Start();
-                insertion.Dichotomy();
+                //insertion.Dichotomy();
                 sw.Stop();
                 report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(insertion.AsgCounter)}|{Format(insertion.CMPCounter)}||";
             }
@@ -96,28 +98,28 @@ public static class Program
             sw = new Stopwatch();
             Shell shell = new Shell(GetCopyMass(count));
             sw.Start();
-            shell.Basic();
+            // shell.Basic();
             sw.Stop();
             report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(shell.AsgCounter)}|{Format(shell.CMPCounter)}||";
 
             sw = new Stopwatch();
             shell = new Shell(GetCopyMass(count));
             sw.Start();
-            shell.Hibbard();
+            // shell.Hibbard();
             sw.Stop();
             report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(shell.AsgCounter)}|{Format(shell.CMPCounter)}||";
 
             sw = new Stopwatch();
             shell = new Shell(GetCopyMass(count));
             sw.Start();
-            shell.Pratt();
+            //shell.Pratt();
             sw.Stop();
             report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(shell.AsgCounter)}|{Format(shell.CMPCounter)}||";
 
             sw = new Stopwatch();
             shell = new Shell(GetCopyMass(count));
             sw.Start();
-            shell.Tsiur();
+            //  shell.Tsiur();
             sw.Stop();
             report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(shell.AsgCounter)}|{Format(shell.CMPCounter)}||";
 
@@ -129,7 +131,7 @@ public static class Program
             if (massForTests[count].Length <= 100000)
             {
                 sw.Start();
-                selection.Basic();
+                //selection.Basic();
                 sw.Stop();
                 report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(selection.AsgCounter)}|{Format(selection.CMPCounter)}||";
             }
@@ -145,8 +147,22 @@ public static class Program
             sw.Stop();
             report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(heap.AsgCounter)}|{Format(heap.CMPCounter)}||";
 
-            reports3.Add(report);
+            sw = new Stopwatch();
+            QuickSort qs = new QuickSort(GetCopyMass(count));
+            sw.Start();
+            qs.Sort();
+            sw.Stop();
+            report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(qs.AsgCounter)}|{Format(qs.CMPCounter)}||";
 
+
+            sw = new Stopwatch();
+            MergeSort ms = new MergeSort(GetCopyMass(count));
+            sw.Start();
+            ms.Sort();
+            sw.Stop();
+            report += FormatTimer(sw.Elapsed.TotalMilliseconds) + $"|{Format(ms.AsgCounter)}|{Format(ms.CMPCounter)}||";
+
+            reports3.Add(report);
             count++;
         }
 
@@ -201,10 +217,13 @@ public static class Program
         hat = "Size".PadRight(12) +
             "||" + "Selection".PadRight(temp) +
             "||" + "HeapSort".PadRight(temp) +
-            "||";
+            "||" + "QuickSort".PadRight(temp) +
+            "||" + "MergeSort".PadRight(temp);
         Console.WriteLine(hat);
         Console.WriteLine(
             "".PadLeft(12) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(12) + "|" + "cmp.".PadLeft(12) + "||" +
+            "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(12) + "|" + "cmp.".PadLeft(12) + "||" +
             "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(12) + "|" + "cmp.".PadLeft(12) + "||" +
             "time, ms".PadLeft(8) + "|" + "assig.".PadLeft(12) + "|" + "cmp.".PadLeft(12) + "||"
             );
@@ -219,7 +238,7 @@ public static class Program
     static long[] sizes;
     static void GetMassForTests()
     {
-        sizes = new long[] { (long)Math.Pow(10, 2), (long)Math.Pow(10, 3), (long)Math.Pow(10, 4), (long)Math.Pow(10, 5) , (long)Math.Pow(10, 6) };
+        sizes = new long[] { (long)Math.Pow(10, 2), (long)Math.Pow(10, 3), (long)Math.Pow(10, 4), (long)Math.Pow(10, 5), (long)Math.Pow(10, 6) };
         massForTests = new long[sizes.Length][];
 
         for (int i = 0; i < sizes.Length; i++)
