@@ -33,10 +33,15 @@ namespace SimpleSort
             long X = root;
             long L = 2 * X + 1;
             long R = L + 1;
-            if ((++CMPCounter > 0) && L < size && mass[L] > mass[X]) { X = L; }
-            if ((++CMPCounter > 0) && R < size && mass[R] > mass[X]) { X = R; }
+
+            if ((++CMPCounter > 0) && L < size && mass[L] > mass[X]) 
+                X = L;
+            if ((++CMPCounter > 0) && R < size && mass[R] > mass[X]) 
+                X = R;
+
             if (X == root)
                 return;
+
             Swap(ref mass[root], ref mass[X]);
             Heapify(X, size);
         }

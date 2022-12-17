@@ -5,9 +5,20 @@ public static class Program
 {
     public static void Main()
     {
-        MergeSort mergeSort = new MergeSort(new long[] { 0, 2, 8, 5, 3, 4, 10, 25, 7, 1, 2, 7, 2, 4, 3 });
+        //MergeSort mergeSort = new MergeSort(new long[] { 0, 2, 8, 5, 3, 4, 10, 25, 7, 1, 2, 7, 2, 4, 3 });
         //mergeSort.Sort();
-        //Debag();
+
+        Files files = new Files();
+        files.Generate(15, 100, "nums");
+        files.Split(5, "nums");
+
+        Shell shell = new Shell();
+        files.SortContentSplitFiles(shell.Hibbard);
+        files.Merge();
+       // ExternalSort externalSort = new ExternalSort(10025, 16383);
+       //   externalSort.Sort();
+
+        // Debag();
     }
 
     static void Debag()

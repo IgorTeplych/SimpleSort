@@ -9,11 +9,11 @@ namespace SimpleSort
     public class Shell
     {
         long[] mass;
+        public Shell() { }
         public Shell(long[] mass)
         {
             this.mass = mass;
         }
-        
         public long AsgCounter { get; private set; }
         public long CMPCounter { get; private set; }
 
@@ -34,6 +34,25 @@ namespace SimpleSort
 
         public long[] Hibbard()
         {
+            int pow = (int)Math.Log2(mass.Length);
+            long gap = 2;
+            while (gap > 1)
+            {
+                gap = (long)Math.Pow(2, pow--) - 1;
+                for (long i = gap; i < mass.Length; i++)
+                {
+                    for (long j = i; (++CMPCounter > 0) && j >= gap && mass[j - gap] > mass[j]; j -= gap)
+                    {
+                        Swap(ref mass[j - gap], ref mass[j]);
+                    }
+                }
+            }
+            return mass;
+        }
+
+        public long[] Hibbard(long[] mass)
+        {
+            this.mass = mass;
             int pow = (int)Math.Log2(mass.Length);
             long gap = 2;
             while (gap > 1)
